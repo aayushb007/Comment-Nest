@@ -1,0 +1,25 @@
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script>
+  const socket = io('http://localhost:3000', {
+    transports: ['websocket'],
+    reconnection: true
+  });
+
+  socket.on('connect', () => {
+    console.log('Connected to server');
+  });
+
+  socket.on('connect_error', (error) => {
+    console.error('Connection error:', error);
+  });
+
+ 
+
+  setInterval(() => {
+    socket.emit('sendMessage', { sender: 'Aayush', message: 'Hello world!' });
+
+}, 2000);
+  socket.on('receiveMessage', (data) => {
+    console.log('New message:', data);
+  });
+</script>
